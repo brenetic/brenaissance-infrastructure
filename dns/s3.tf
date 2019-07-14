@@ -1,5 +1,5 @@
  resource "aws_s3_bucket" "dns-tfstate" {
-  bucket = "${local.service}-tfstate"
+  bucket = "dns-tfstate"
   region = "${local.region}"
 
    server_side_encryption_configuration {

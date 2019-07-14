@@ -1,5 +1,6 @@
 locals {
-  service = "dns"
+  zone    = "brenetic.com"
+  domain  = "brenetic.com"
   region  = "eu-west-2"
 }
 
@@ -18,4 +19,12 @@ terraform {
     region  = "eu-west-2"
     encrypt = true
   }
+}
+
+resource "aws_route53_zone" "brenetic" {
+  name = "${local.zone}"
+}
+
+output "brenetic_name_servers" {
+  value = "${aws_route53_zone.brenetic.name_servers}"
 }
