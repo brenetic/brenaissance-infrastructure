@@ -1,21 +1,18 @@
-locals {
-  service = "home-one"
-  region  = "eu-west-2"
+provider "netlify" {
+  token = "${data.aws_kms_secrets.netlify_token.plaintext["netlify_token"]}"
 }
 
-provider "aws" {
-  version     = ">= 2.17.0"
-  max_retries = 1
-  region      = "eu-west-2"
-}
+resource "netlify_deploy_key" "key" {}
 
-terraform {
-  required_version = "0.12.3"
+resource "netlify_site" "home-one" {
+  name = "${local.service}"
 
-   backend "s3" {
-    bucket  = "home-one-tfstate"
-    key     = "home-one.tfstate"
-    region  = "eu-west-2"
-    encrypt = true
+  repo {
+    repo_branch   = "master"
+    command       = "npm run generate"
+    deploy_key_id = "${netlify_deploy_key.key.id}"
+    dir           = "dist"
+    provider      = "github"
+    repo_path     = "brenetic/home-one"
   }
 }
