@@ -29,3 +29,16 @@ resource "aws_route53_record" "www_brenetic_web" {
 
   records = ["${data.aws_kms_secrets.brenetic_netlify_domain.plaintext["netlify_domain"]}"]
 }
+
+resource "aws_route53_record" "brenetic_mx_record" {
+  zone_id = "${var.zone_id}"
+  name    = "mail"
+  type    = "MX"
+  ttl     = "60"
+
+  records = ["${data.aws_ssm_parameter.brenetic_mx_host.value}"]
+}
+
+data "aws_ssm_parameter" "brenetic_mx_host" {
+  name = "brenetic-mx-host"
+}
