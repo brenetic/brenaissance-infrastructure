@@ -32,29 +32,13 @@ resource "aws_route53_record" "www_brenetic_web" {
 
 resource "aws_route53_record" "brenetic_mx_record" {
   zone_id = "${var.zone_id}"
-  name    = "mail"
+  name    = "${var.domain}"
   type    = "MX"
   ttl     = "60"
 
-  records = [
-    "5 ${data.aws_ssm_parameter.brenetic_mx_host.value}",
-    "10 ${aws_route53_record.brenetic_mx_ip_record.name}.${var.domain}"
-  ]
+  records = ["1 ${data.aws_ssm_parameter.brenetic_mx_host.value}"]
 }
 
 data "aws_ssm_parameter" "brenetic_mx_host" {
   name = "brenetic-mx-host"
-}
-
-resource "aws_route53_record" "brenetic_mx_ip_record" {
-  zone_id = "${var.zone_id}"
-  name    = "mail-ip"
-  type    = "A"
-  ttl     = "60"
-
-  records = ["${data.aws_ssm_parameter.brenetic_mx_ip.value}"]
-}
-
-data "aws_ssm_parameter" "brenetic_mx_ip" {
-  name = "brenetic-mx-ip"
 }
