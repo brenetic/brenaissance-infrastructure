@@ -42,3 +42,16 @@ resource "aws_route53_record" "brenetic_mx_record" {
 data "aws_ssm_parameter" "brenetic_mx_host" {
   name = "brenetic-mx-host"
 }
+
+resource "aws_route53_record" "brenetic_keybase_txt" {
+  zone_id = "${var.zone_id}"
+  name    = "_keybase"
+  type    = "TXT"
+  ttl     = "60"
+
+  records = ["${data.aws_ssm_parameter.brenetic_keybase_txt.value}"]
+}
+
+data "aws_ssm_parameter" "brenetic_keybase_txt" {
+  name = "brenetic-keybase-txt"
+}
