@@ -1,5 +1,4 @@
 locals {
-  account = "${data.aws_kms_secrets.account_number.plaintext["account_number"]}"
   service = "ba-sing-se"
   region  = "eu-west-2"
 }
@@ -18,12 +17,5 @@ terraform {
     key     = "ba-sing-se.tfstate"
     region  = "eu-west-2"
     encrypt = true
-  }
-}
-
-data "aws_kms_secrets" "account_number" {
-  secret {
-    name    = "account_number"
-    payload = "AQICAHiqGtTMHU0w6zM2AUzUl6QjIhh4bKxo5wwDovph0CfB/wHSIdcnkEwXHpYz3svFDzFIAAAAajBoBgkqhkiG9w0BBwagWzBZAgEAMFQGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMWDqezJ39ovlHlM13AgEQgCeGM0d6/5277Bdp3jyofjgGgO+Ud9TT+uuaYetCDF2PixDznDrvWoY="
   }
 }
