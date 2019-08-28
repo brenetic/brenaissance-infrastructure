@@ -1,5 +1,5 @@
 locals {
-  organsiation = "brenaissance"
+  organisation = "brenaissance"
   region       = "eu-west-2"
 }
 
@@ -21,7 +21,7 @@ terraform {
 }
 
  resource "aws_s3_bucket" "brenaissance-tfstate" {
-  bucket = "${local.organsiation}-tfstate"
+  bucket = "${local.organisation}-tfstate"
   region = "${local.region}"
 
    server_side_encryption_configuration {
