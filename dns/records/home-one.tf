@@ -49,3 +49,16 @@ resource "aws_route53_record" "brenetic_keybase_txt" {
 data "aws_ssm_parameter" "brenetic_keybase_txt" {
   name = "brenetic-keybase-txt"
 }
+
+resource "aws_route53_record" "brenetic_protonmail_txt" {
+  zone_id = "${var.zone_id}"
+  name    = "_protonmail"
+  type    = "TXT"
+  ttl     = "60"
+
+  records = ["${data.aws_ssm_parameter.brenetic_protonmail_txt.value}"]
+}
+
+data "aws_ssm_parameter" "brenetic_protonmail_txt" {
+  name = "brenetic-protonmail-txt"
+}
