@@ -1,5 +1,5 @@
 locals {
-  account = "${data.aws_kms_secrets.account_number.plaintext["account_number"]}"
+  account = "${data.aws_ssm_parameter.account_number.value}"
   service = "notes"
   region  = "eu-west-2"
 }
@@ -21,9 +21,6 @@ terraform {
   }
 }
 
-data "aws_kms_secrets" "account_number" {
-  secret {
-    name    = "account_number"
-    payload = "AQICAHiqGtTMHU0w6zM2AUzUl6QjIhh4bKxo5wwDovph0CfB/wHSIdcnkEwXHpYz3svFDzFIAAAAajBoBgkqhkiG9w0BBwagWzBZAgEAMFQGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMWDqezJ39ovlHlM13AgEQgCeGM0d6/5277Bdp3jyofjgGgO+Ud9TT+uuaYetCDF2PixDznDrvWoY="
-  }
+data "aws_ssm_parameter" "account_number" {
+  name = "account-number"
 }
