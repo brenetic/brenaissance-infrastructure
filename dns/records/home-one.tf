@@ -76,3 +76,16 @@ data "aws_ssm_parameter" "brenetic_protonmail_txt" {
 data "aws_ssm_parameter" "brenetic_spf_txt" {
   name = "brenetic-spf-txt"
 }
+
+resource "aws_route53_record" "brenetic_dkim_txt" {
+  zone_id = "${var.zone_id}"
+  name    = "protonmail._domainkey"
+  type    = "TXT"
+  ttl     = "300"
+
+  records = ["${data.aws_ssm_parameter.brenetic_dkim_txt.value}"]
+}
+
+data "aws_ssm_parameter" "brenetic_dkim_txt" {
+  name = "brenetic-dkim-txt"
+}
