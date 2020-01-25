@@ -28,13 +28,20 @@ resource "aws_route53_record" "brenetic_mx_record" {
   zone_id = "${var.zone_id}"
   name    = "${var.domain}"
   type    = "MX"
-  ttl     = "60"
+  ttl     = "300"
 
-  records = ["1 ${data.aws_ssm_parameter.brenetic_mx_host.value}"]
+  records = [
+    "${data.aws_ssm_parameter.brenetic_mx_host.value}",
+    "${data.aws_ssm_parameter.brenetic_mx_host_2.value}"
+    ]
 }
 
 data "aws_ssm_parameter" "brenetic_mx_host" {
   name = "brenetic-mx-host"
+}
+
+data "aws_ssm_parameter" "brenetic_mx_host_2" {
+  name = "brenetic-mx-host-2"
 }
 
 resource "aws_route53_record" "brenetic_keybase_txt" {
