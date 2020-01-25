@@ -33,7 +33,7 @@ resource "aws_route53_record" "brenetic_mx_record" {
   records = [
     "${data.aws_ssm_parameter.brenetic_mx_host.value}",
     "${data.aws_ssm_parameter.brenetic_mx_host_2.value}"
-    ]
+  ]
 }
 
 data "aws_ssm_parameter" "brenetic_mx_host" {
@@ -63,9 +63,16 @@ resource "aws_route53_record" "brenetic_protonmail_txt" {
   type    = "TXT"
   ttl     = "300"
 
-  records = ["${data.aws_ssm_parameter.brenetic_protonmail_txt.value}"]
+  records = [
+    "${data.aws_ssm_parameter.brenetic_protonmail_txt.value}",
+    "${data.aws_ssm_parameter.brenetic_spf_txt.value}"
+  ]
 }
 
 data "aws_ssm_parameter" "brenetic_protonmail_txt" {
   name = "brenetic-protonmail-txt"
+}
+
+data "aws_ssm_parameter" "brenetic_spf_txt" {
+  name = "brenetic-spf-txt"
 }
