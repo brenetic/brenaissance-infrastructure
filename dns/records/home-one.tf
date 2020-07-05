@@ -77,15 +77,41 @@ data "aws_ssm_parameter" "brenetic_spf_txt" {
   name = "brenetic-spf-txt"
 }
 
-resource "aws_route53_record" "brenetic_dkim_txt" {
+resource "aws_route53_record" "brenetic_dkim1_cname" {
   zone_id = "${var.zone_id}"
   name    = "protonmail._domainkey"
-  type    = "TXT"
+  type    = "CNAME"
   ttl     = "300"
 
-  records = ["${data.aws_ssm_parameter.brenetic_dkim_txt.value}"]
+  records = ["${data.aws_ssm_parameter.brenetic_dkim1.value}"]
 }
 
-data "aws_ssm_parameter" "brenetic_dkim_txt" {
-  name = "brenetic-dkim-txt"
+data "aws_ssm_parameter" "brenetic_dkim1" {
+  name = "brenetic-dkim1"
+}
+
+resource "aws_route53_record" "brenetic_dkim2_cname" {
+  zone_id = "${var.zone_id}"
+  name    = "protonmail2._domainkey"
+  type    = "CNAME"
+  ttl     = "300"
+
+  records = ["${data.aws_ssm_parameter.brenetic_dkim2.value}"]
+}
+
+data "aws_ssm_parameter" "brenetic_dkim2" {
+  name = "brenetic-dkim2"
+}
+
+resource "aws_route53_record" "brenetic_dkim3_cname" {
+  zone_id = "${var.zone_id}"
+  name    = "protonmail3._domainkey"
+  type    = "CNAME"
+  ttl     = "300"
+
+  records = ["${data.aws_ssm_parameter.brenetic_dkim3.value}"]
+}
+
+data "aws_ssm_parameter" "brenetic_dkim3" {
+  name = "brenetic-dkim3"
 }
