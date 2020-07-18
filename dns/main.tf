@@ -11,7 +11,7 @@ provider "aws" {
 }
 
 terraform {
-  required_version = "0.12.3"
+  required_version = "0.12.28"
 
    backend "s3" {
     bucket  = "dns-tfstate"

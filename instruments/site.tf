@@ -10,11 +10,11 @@ provider "aws" {
 }
 
 provider "netlify" {
-  token = "${data.aws_ssm_parameter.netlify_token.value}"
+  token = data.aws_ssm_parameter.netlify_token.value
 }
 
 terraform {
-  required_version = "0.12.3"
+  required_version = "0.12.28"
 
    backend "s3" {
     bucket  = "instruments-tfstate"
