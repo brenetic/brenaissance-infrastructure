@@ -31,12 +31,12 @@ data "aws_ssm_parameter" "netlify_token" {
 resource "netlify_deploy_key" "key" {}
 
 resource "netlify_site" "instruments" {
-  name = "${local.service}"
+  name = local.service
 
   repo {
-    repo_branch   = "master"
+    repo_branch   = "main"
     command       = "HUGO_ENV=production hugo"
-    deploy_key_id = "${netlify_deploy_key.key.id}"
+    deploy_key_id = netlify_deploy_key.key.id
     dir           = "public"
     provider      = "github"
     repo_path     = "brenetic/instruments"
