@@ -13,7 +13,7 @@ provider "aws" {
 terraform {
   required_version = "0.12.28"
 
-   backend "s3" {
+  backend "s3" {
     bucket  = "notes-tfstate"
     key     = "notes.tfstate"
     region  = "eu-west-2"
